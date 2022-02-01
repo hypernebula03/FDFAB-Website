@@ -36,7 +36,6 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link active" href="index.html">Home</a>
         <a class="nav-item nav-link" href="about.html">Introduction</a>
-        <a class="nav-item nav-link" href="safety.html">Fablab Safety</a>
         <a class="nav-item nav-link" href="software.html">Software</a>
         <a class="nav-item nav-link" href="finalproject.html">Final Project</a>
         <div class="dropdown">
@@ -62,7 +61,111 @@
 <header>
   <h1>Electronics Production</h1>
 </header>
-    
+ <body>
+   <p>
+     In Electronics Production, a key part of most technolgies is a Printed Circuit Board (PCB). PCBs are defined as custom etched/printed boards.<br>
+     Electronic components (such as LEDs, resistors etc.) are mounted onto the board to form a working circuit or assembly.<br>
+     PCBs are essential for most common technology available in the market and are way better compared to the standard breadboard.<br>
+     <div class="list">
+      <ul> <b> So why choose PCBs over breadboards? Some reasons include: </b>
+        <li>customized electronics for product requirements</li>
+        <li>customized footprint (e.g. occupies less space)</li>
+        <li>more reliable (soldered PCBs last longer than wired breadboards)</li>
+        <li>can prototype and iterate faster</li>
+        <li>better product integration</li>
+      </ul>
+    </div>
+    With that, how are PCBs made? There are 2 ways to do it.<br>
+    First method is through etching. Etching uses certain chemicals to etch out the outlines of your PCB. There are many types of chemicals<br>
+    used for etching, however all require waste control in order to dispose of due to their chemical disposition. <br>
+    Therefore, in the Fablab, this method is not used.<br>
+    The second method is to mill out your PCB. Using a small CNC machine, the traces can be milled out and the PCB can be cut out.<br>
+    Compared to etching, this method is much simpler and is used in the Fablab.<br>
+    In the Fablab, the Stepcraft 420 machine is used, paired alongside UCCCNC post processing software.<br>
+   </p>
+   <p>
+     For my assignment, I was tasked to mill out my own ISP programmer.<br>
+    An ISP programmer is an In System Programmer used to program certain microcontrollers.<br>
+    To create my ISP, I will need to first generate the g-code for both the traces (connections) and the outline (cut out pcb)<br>
+    (image)<br>
+    Using Mods, this is how the g-code is generated. <br>
+    Once the right program is loaded, we have to change the settings to suit our needs.<br>
+    Note that these settings are not always needed and can change depending on your needs.<br>
+    For traces, the endmill size is 0.4mm, cut speed around 60mm/min, cut depth 0.05mm, total depth 0.05mm, offset 3<br>
+    For outlines, endmill size 0.8mm, cut speed 70mm/min, cut depth 0.45mm, total depth 1.7mm, offset 1<br>
+    Press calculate and save the g-code. Now, we can start milling our PCB.
+   </p>
+   <p>
+    Loading up the g-code in UCCNC post-processor, before I can start milling, I need to check a few things.<br>
+    First is to ensure the copper board used is stuck at a flat surface. It must not move while milling.<br>
+    Afterwards, we attach our endmill. Start with the traces, then cut the outline out.<br>
+    Next, we have to calibrate our axes. Calibrating the x and y-axes are simple. Find the origin point (bottom left) of your<br>
+    imported g-code and set a point as your origin. After that is done, setting the z-axis needs a bit more work.<br>
+    Stepcraft 420 comes with a probe that you use to set your z as 0.<br>
+    By placing it under the endmill, we can use it to set our z as 0.<br>
+    Once that is done, we can start milling.<br>
+    Below is the machine at work<br>
+    (image)<br>
+    Final cut ISP<br>
+    (image)<br>
+    This step is optional, however to reduce the chances of shorting your PCB you can remove dead copper<br> 
+    (copper that does not contribute to any electrical connections in your PCB).
+    (image if have)<br>
+    With our ISP milled out, we need to assemble the electronics. <br>
+    For our PCB, our electronic components are SMD (surface mounted devices). They are much smaller than your average component,<br>
+    but they serve the same purpose. For most modern electronics, SMDs are better for more compact PCBs.<br>
+    <div class="list">
+      <ul> <b> The components we need are: </b>
+        <li>ATtiny45/85 X1</li>
+        <li>1KΩ resistors X2</li>
+        <li>499Ω resistors X2</li>
+        <li>49Ω resistors X2</li>
+        <li>3.3V zener diodes X2</li>
+        <li>red LED X1</li>
+        <li>green LED X2</li>
+        <li>100nF non-polar capacitor X1</li>
+        <li>2X3 pin header X1</li>
+      </ul>
+    </div>
+    Below is the PCB with the soldered components.<br>
+   </p>
+   With the hardware done, it is time to program it.<br> 
+   <div class="list">
+    <ul> <b> To program it, the following software has to be installed: </b>
+      <li>Atmel GNU Toolchain</li>
+      <li>GNU Make</li>
+      <li>avrdude</li>
+      <li>USB Driver (Zadig)</li>
+    </ul>
+  </div>
+  After that, we need to update the path for these software installed. (Windows > Advanced System Settings > Environment Variables)<br>
+  <div class="list">
+    <ul> <b> These have to be added in: </b>
+      <li>C:\Program Files\avr8-gnu-toolchain\bin</li>
+      <li>C:\Program Files (x86)\GnuWin32\bin</li>
+      <li>C:\Program Files\avrdude</li>
+    </ul>
+  </div>
+Once the installations is done, some modifications need to be done.<br>
+First is to configure the makefile. Update MCU to whatever microcontroller you use (attiny85 for me)<br>
+(image)<br>
+Next, edit the highlighted text so that it shows -G. For some reason I had to change it, otherwise the whole compiler stopped working.<br>
+(image)<br>
+Once done, head to command prompt. We will check to see if our compilers are done right.<br>
+First, type make-v and press Enter.<br>
+Next, type avr-gcc -version and press Enter.<br>
+Finally, type avrdude and press Enter.<br>
+(image)<br>
+Once the check is complete, we can run our programs to program our ISP.<br>
+First, type 'make flash' to upload the firmware to our ISP.<br>
+(image)<br>
+Second, type 'make fuses' to program fuse settings for our ISP.<br>
+(image)<br>
+Lastly, type 'make rstdisbl' to disable our reset pin and convert it to a general purpose I/O pin. This makes our ISP programmer not programmable.<br>
+(image><br>
+Image credit for the programming goes to Justin as I did my programming on another computer.<br>
+With that, my ISP is done.<br>
+ </body>   
 </div>
 
 <footer>
