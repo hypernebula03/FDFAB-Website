@@ -61,7 +61,37 @@
 <header>
   <h1>3D Machining</h1>
 </header>
-    
+  <body>
+    <p>
+      MODELLING<br>
+      I decided to make something simple for this assignment. This will be machined out for my assignment in Molding and Casting.<br>
+      First, I made the outer perimeter.<br>
+      To make it a 3D machined product, I filleted the edges to make it look like a hemisphere with a flat top.<br>
+    </p>
+    <p>
+      TOOLPATH GENERATION<br>
+      Head to the Design tab, and switch to Manufacturing.<br>
+      Here, we can generate our toolpath to machine the mold.<br>
+      Before we start, we need to install the correct post-processor for the job. The Stepcraft-UCCNC post processor is used.<br>
+      It can be found in Fusion 360's Post Library.<br>
+      With that installed, we can generate the toolpath for our mold.<br>
+      Since its not fully cutting through the foam, pocket clearing is done.<br>
+      Spindle speed is not necessary to change since that is manually decided by the Stepcraft 420 machine.<br>
+      Here are my settings:<br>
+      (image)<br>
+      With the settings done, it's time to generate and simulate the toolpath.<br>
+  
+    </p>
+    <p>
+      MACHINING MOLD<BR>
+      Unlike PCB manufacturing, in Fusion 360 you can directly convert the toolpath into an NC file. Thus, mods is not needed.<br>
+      However, the remaining steps afterwards is the same. Import the file, tape down the foam, set the axes and start cycle.<br>
+      For setting the axes, you can do a rough 'X' cut along the top since the set height of the model is lower than the foam.<br>
+      Hence, rough estimations will suffice.<br>
+      Here is what the finished machined foam looks like.<br>
+      (image)<br>
+    </p>
+  </body>  
 </div>
 
 <footer>
