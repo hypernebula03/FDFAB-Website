@@ -61,7 +61,71 @@
 <header>
   <h1>Electronics Design</h1>
 </header>
+<body>
+  <p>
+    In Electronics Design, this is where I learnt how to make custom PCBs for my own use.<br>
+    Using Autodesk Eagle, a Computer Aided Engineering software (CAE), custom PCBs can be designed from scratch.<br>
+    There are other softwares available (e.g. Kicad), however for this module I chose to use Eagle.<br>
+  </p>
+  <p>
+    For Autodesk Eagle, to make a PCB, there are two sections to it. First is the schematic. This is where you design/add the electronics.<br>
+    It is also where you verify the electrical connections to see if the PCB electrically works as intended. <br>
+    Next is the Board Design. Like the name says, it is where you design your PCB and wire your connections. This will influence your g-code and can be very time consuming.<br> 
+  </p>
+  <p>
+    For my assignment, I had to make an Echo Board from scratch. <br>
+    This means I have to design my own board, mill it out, solder the electronics and finally code it.<br>
+    To start off, I have to install the Fablab Library first. Eagle's default library does not have the electronic components I needed.<br>
+    Under Eagle's control panel, I added the new directory where I unzipped my Fablab library. Afterwards, click "Use All" to read the library.<br>
+  </p>
+  <p>
+    After creating a new schematic, it's time to add all our components.<br>
+    <div class="list">
+      <ul> <b> The components we need are: </b>
+        <li>ATtiny85 X1</li>
+        <li>10KΩ resistors X2</li>
+        <li>1KΩ resistors X1</li>
+        <li>red LED X1</li>
+        <li>100nF non-polar capacitor X1</li>
+        <li>2X3 pin header X1</li>
+        <li>1X6 pin header X1</li>
+      </ul>
+    </div>
+  </p>
+  <p>
+    With that done, it is time to wire everything up.<br>
+    Here is the finished electrical layout. To verify everything works, we do a ERC (Electrical Rule Check).<br>
+    We can ignore some of the warnings as some pins will not be used.<br>
+    Now, we switch over to the board layout through the "Switch to Board" tab.
+  </p>
+  <p>
+    Before we arrange our board layout, we have to resize the board.<br>
+    Afterwards, I set the wire bending style and width of each wire.<br>
+    There are a few ways to wire your PCB. The main thing to note is that connections cannot intersect one another.<br>
+    To make life simpler, I decided to use Autoroute and edit (using Ripup command) from there. While not perfect, it gives me a starting point and is better than nothing.<br>
+    After many hours of rewiring, this is what I got:<br>
+    (image)<br>
+    We need to create an external layer for our outline. Using Layer 46 (Milling), I drew a basic outline surrounding my board.<br>
+    Before we can export our board, we have to verify it again, using DRC (Design Rule Check).<br>
+    This is to ensure the traces are wide enough and the PCB is machinable.<br>
+  </p>
+  <p>
+    Now, we convert our board layout into g-code. To do this, I filtered by layer (one for trace, one for outline) and exported a .png image of it.<br>
+    Using Mods, I replicated the settings I used to create my ISP for both traces and outline.<br>
+    With that done, it's time to machine the PCB out.<br>
+    (image)<br>
+    Here is the PCB cut out. I tried to remove the dead copper but couldn't remove it.<br>
+    Time to stuff the board. This was much harder since unlike the ISP, there is less space for solder due to the design of the PCB.<br>
+    Initially, my soldering was not the best. Some parts were too small to solder and excess solder shorted some pins.<br>
+    With some assistance from Mr Steven Chew, the board was finally soldered properly without any shorts.<br>
+  </p>
+  <p>
+    Time to program the board. Using the ISP I made, I linked the Hello Board to my laptop. <br>
+    Since the programs were installed, all I needed was to type 'avrdude' to ensure the board was recongnized.<br>
+    (image)<br>
     
+  </p>
+</body>    
 </div>
 
 <footer>

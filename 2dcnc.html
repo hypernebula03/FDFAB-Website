@@ -61,7 +61,95 @@
 <header>
   <h1>2D Computer Controlled Machining</h1>
 </header>
-    
+<body>
+  <p>
+    For Large Format CNC Machining, it is good for machining large (wooden) components that are 2D.<br>
+    The machine available in T11C is the EAS Versatil 2500, paired alongside VCarve Pro and NC-Eas(Y) Pro.<br>
+  </p>
+  <p>
+    COMPETENCY TEST<br>
+    To show we can use the machine safely, we had to go through a competency test.<br>
+    We have to machine out a coaster that Mr Steven Chew modelled.<br>
+  </p>
+  <p>
+    VCARVE PRO<br>
+    2 types of cuts have to be made.<br>
+    First is a pocket pass. This is for the inside section of the coaster.<br>
+    Next is a profile pass, which is for cutting out the coaster.<br>
+    Tabs have to be added for the profile pass to hold the coaster while being cut out.<br>
+  </p>
+  <p>
+    MACHINING<br>
+    Once the post processing is done, the tap file is opened in NC-Eas(Y) Pro.<br>
+    Like any CNC Machine, the origin points have to be set before machining.<br>
+    Pressing "reference move" resets the machine to the default origin point.<br>
+    Time to set our X and Y axes.<br>
+    To move it, you must first set the axis to move (X or Y).<br>
+    Next, select the direction (+ve or -ve direction).<br>
+    Finally, rotate the knob to move the machine. <br>
+    Operating the machine is a bit counterintuitive, however you can think of it as a keyboard.<br>
+    Move the knob slowly as inputs stack. Avoid spam-rotating the knob.<br>
+    For the Z-axis, use the "tool measure" function instead. A switch is built-in, similar to the Stepcraft 420 machine.<br>
+    After positioning the switch underneath the endmill, it will descend and press the switch, thus setting our z-axis.<br>
+    With axes set, the chip vacuum is turned on.<br>
+    With that done, the coaster can be machined.<br>
+    Here is how the coaster looks like.<br>
+    It is rough along the edges, thus some sanding needs to be done.<br>
+  </p>
+
+  <p>
+    ASSIGNMENT<br>
+    For this assignment, I was tasked to machine out a large piece of furniture.<br>
+    To make life simple, I made a small flatpack stool.<br>
+  </p>
+  <p>
+    MODELLING<br>
+    To start off, I made the lid. Due to the fact that I do not know what thickness of wood I need to use, this has to be parametric.<br>
+    Here are my variables used. For thickness, I set an arbitrary value.<br>
+    A simple top was drawn, with a cross shaped tab in the middle. This will be where the legs are inserted.<br>
+    The top was extruded to the set thickness (which will be changed). The edge is filleted to avoid sharp edges.<br>
+    Time for the legs.<br>
+    A simple sketch was made. Note the bottom is a slot as the second leg has to be slot for balancing.<br>
+    Same extrusion applies.<br>
+    Finally, the last leg.<br>
+    Like the other pieces, it is extruded to my set thickness.<br>
+    Before exporting, the legs are filleted.<br>
+    With the model done, just before machining, I adjusted the thickness and exported each face to a DXF file.<br>
+  </p>
+  <p>
+    VCARVE<br>
+    Before machining, the files are loaded into VCarve Pro to prepare the DXF Files.<br>
+    After adding the files into VCarve Pro, we have to check all the vectors are grouped.<br>
+    Due to the nature of the CNC machine, any slots machined that go through insertion will not be cut properly if left as it is.<br>
+    To resolve this, a 'dogbone' fillet is added in VCarve Pro to our files after being added and grouped.<br>
+    Now, we can process our files.<br>
+    Since our flatpack furniture is just cut out (full cut), profile cutting is used.<br>
+    The endmill used is 6mm in diameter.<br>
+    Next, we have to add tabs. Tabs are added to hold the cut part, ensuring it does not shift around while cuttiing.<br>
+    Normally around 4 tabs is enough, however for large pieces like mine, it is good to add more.<br>
+  </p>
+  <p>
+    MACHINING<br>
+    Once the post processing is done, the tap file is opened in NC-Eas(Y) Pro.<br>
+    Like any CNC Machine, the origin points have to be set before machining.<br>
+    Pressing "reference move" resets the machine to the default origin point.<br>
+    Time to set our X and Y axes.<br>
+    To move it, you must first set the axis to move (X or Y).<br>
+    Next, select the direction (+ve or -ve direction).<br>
+    Finally, rotate the knob to move the machine. <br>
+    Operating the machine is a bit counterintuitive, however you can think of it as a keyboard.<br>
+    Move the knob slowly as inputs stack. Avoid spam-rotating the knob.<br>
+    For the Z-axis, use the "tool measure" function instead. A switch is built-in, similar to the Stepcraft 420 machine.<br>
+    After positioning the switch underneath the endmill, it will descend and press the switch, thus setting our z-axis.<br>
+    With axes set, the chip vacuum is turned on.<br>
+    With that done, we can finally machine our stool.<br>
+  </p>
+  <p>
+    ASSEMBLY<br>
+    After the machining, here is the unassembled stool. Some post-machining work needs to be done, mainly sanding the edges.<br>
+    (image)<br>
+  </p>
+</body>    
 </div>
 
 <footer>
