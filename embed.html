@@ -57,11 +57,35 @@
   </nav>
 
 <div class="main">
+  <body>
+    <header>
+      <h1>Embedded Programming</h1>
+    </header>
+    <p>
+      For embedded programming, it is a follow up from the Electronics Design assignment. Using our machined hello boards, we were tasked to program the board to do something.<br>
 
-<header>
-  <h1>Embedded Programming</h1>
-</header>
-    
+    </p>
+    <p>
+      Since my hello board had an ISP header, I used the ISP programmer I made in Electronics Production and connected it to my laptop.<br>
+      Before I could do any coding, I had to install the core library. The attiny core, made by Spence Konde has what I needed.<br>
+      To add the core, head to file -> preferences -> Additional Boards Manager URLs. In there, paste this link "http://drazzy.com/package_drazzy.com_index.json"<br>
+      Once done, go to Tools -> Boards -> Board Manager. Wait for the new boards to load and select attiny core to install.<br>
+
+    </p>
+    <p>
+      With that done, time to configure the IDE to suit my hello board. The main things to note is the board (attiny25/45/85), chip (attiny85), clock source and programmer (usbtinyisp). <br>
+      Once done, burn the bootloader to program the board.
+    </p>
+    <p>
+      Using Mr Steven Chew's sample code, I programmed my board to have 3 functions.<br>
+      For the first button press, the LED will light up indefinitely when the button is pressed once. Pressing the button a second time, the LED will blink at an interval of 500 milliseconds. When the button is pressed the third time, the LED will blink at an interval of 150 milliseconds. <br>
+    </p>
+    <p>
+      Once done, verify the program and upload using programmer.<br>
+      Here is how it works:<br>
+      (insert google drive link)<br>
+    </p>
+</body>    
 </div>
 
 <footer>
