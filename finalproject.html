@@ -69,7 +69,7 @@
         <li>CNC machined parts</li>
         <li>Embedded microcontroller that you designed + fabricated</li>
         <li>At least 1 input/output device that interacts with the user</li>
-        <li>embedded programming</li>
+        <li>Embedded programming</li>
       </ul>
     </div>
     Thus, for this project I decided to make a mini game controller.<br>
@@ -79,32 +79,50 @@
      <h1>PCB Design</h1>
     PCB designing was a necessary but painful part of this project. Because of my lack off knowledge of the atmega chip I used, I made lots of changes midway.<br>
     For my first attempt, I designed the board to fit everything I needed. This included using FTDI headers to connect my switches, as well as ample space to connect my switches on the board itself.<br>
+    <img src = ".\images\pcb design attempt 1.png" width="100%" /><br>
+    <img src = ".\images\board design attempt 1.png" width="100%" /><br>
     This idea was later scrapped as having a larger board meant that machining it would be much harder in the sense that there is more room for error.<br>
     Larger boards tend to be more unstable with vibrations and holding it down was much harder than usual.<br>
     Thus for my second design, I decided to separate the switches from the main PCB. They would still be connected by jumper cables, but the switches will be held on by laser cut plates instead.<br>
+    <img src = ".\images\board design attempt 2.png" width="100%" /><br>
+    <img src = ".\images\pcb design attempt 2.png" width="100%" /><br>
     With a smaller board and lesser connections to worry about, the board was more compact and easier to mill. This also made the modelling of my controller case easier.<br>
     However, as you will see later, I made a few fatal mistakes. First was not accounting for both VCC aand GND connections.<br>
     Second was forgetting about how to connect the PCB to a programmer board (my ISP programmer)<br>
     I also used the wrong type of diodes (LEDs instead of normal diodes) in my design. It may have fried my atmega328 at first, but I am inclined to believe that there were other bigger factors which contributed to its demise.<br>
     After my first "successful" board failed on me, I decided to rework the design. Here is what the final board design looks like.<br>
     Some changes were made, incluing changing the resistance across the USB pin (1.5k ohm resistor instead of 1k, changing the USB from usb-a to mini-usb, adding bypass capacitors...)<br>
-   </p>
+    <img src = ".\images\board design attempt 3.png" width="100%" /><br>
+  </p>
    <p>
      <h1>PCB Machining + Soldering</h1>
     <h2>Machining</h2>
     Using Mods, I generated the g-code for my PCB. All attempts had more or less the same settings (0.35mm tool diameter, 0.05mm cutting + total depth)<br>
+    Attempt 1:<br>
+    <img src = ".\images\mods attempt 1.png" width="100%" /><br>
+    Attempt 2 (dark theme mods?):<br>
+    <img src = ".\images\mods attempt 3.png" width="100%" /><br>
     However, the Stepcraft 420 machines were very chaotic, in the sense that it was very hard to get a consistently good board.<br>
     When I first started milling my PCB, I found out that the z-axis probe was not so accurate due to frequent use.<br>
     Thus, the traces were not cutting deep enough. Therefore, I had to adjust mid cycle by inputting higher z-values (by 0.02mm) and rewinding the g-code to an appropriate point.<br>
+    <img src = ".\images\uneven board.png" width="100%" /><br>
     In addition, the sacrificial board was worn out as double sided tape was used to anchor the copper board down. When ripped out, the board underneath would fray, making it uneven.<br>
     With an uneven board, this can cause some traces to be cut deeper and others more shallower. Sometimes parts of the PCB would not be milled in extreme cases.<br>
+    Below is what it looks when the trace is cut too deep.<br>
+    <img src = ".\images\trace too deep.png" width="100%" /><br>
+    Below is what it looks when the trace is cut too shallow.<br>
+    <img src = ".\images\shallow trace.png" width="100%" /><br>
     Furthermore, the type of endmill used can make or break our boards. Blunt bits would often make lots of burrs in our traces, thus after completion sanding was necessary.<br>
     The end mill tip can also break mid cut if it goes too deep too fast, which ruins the whole board.<br>
     It took me around 6 tries to get it right. Luckily, when it went right it went perfectly.<br>
+    <img src = ".\images\decent board.png" width="100%" /><br>
+    Unfortunately, I forgot that the mini USB header needs to be at the edge of the board so that the cable can connect. Thus I had to saw off the edges.<br>
+    Even though this board isn't usable, I sawed it off as an example.<br>
+    <img src = ".\images\sawed off board.png" width="100%" /><br>
     <h2>Soldering</h2>
     <div class="list">
       <ul> <b> These were the components I used: </b>
-        <li>Atmega328/328p x1</li>
+        <li>Atmega328/328p TQFP x1</li>
         <li>1.5k ohm SMD resistor x1</li>
         <li>49 ohm resistor x2</li>
         <li>10k ohm resistor</li>
@@ -125,17 +143,22 @@
     I tried to solder at home with a $20 soldering iron kit, however as the price would suggest, a cheap soldering iron is not exactly the best at its job.<br>
     The temperature control was abysmal and at its lowest temperature (200 degrees Celsius), the actual temperature felt hotter than the highest setting in the fablab.<br>
     It was evident when the copper board got charred that the temperature settings were very inaccurate. The tip of the soldering iron had oxidised and turned blue.<br>
+    <img src = ".\images\shit iron.png" width="100%" /><br>
     In my first attempt, I took 2 hours to solder the atmega328 chip, and thus fried it in the process.<br>
-    Luckily, I used the fablab soldering iron for my next few attempts, with better results. With assistance from Lynn and Mr Yeo GS, the soldering turned out well for the IC chip.<br>
+    I used the fablab soldering iron for my next few attempts, with better results. With assistance from Lynn and Mr Yeo GS, the soldering turned out well for the IC chip.<br>
     Once soldering was done, I used the multimeter to do a continuity check to see 2 things, whether points that were supposed to be connected were connected, and to check for shorts.<br>
     Soldering the rest of the components were much easier except for the resonator.<br>
     For the resonator, the connections were BELOW the component. Thus, unlike most other components, I had to use the heat gun to properly ensure the connections were there.<br>
     First, I had to cover the pads with solder, then place the resonator on top. While holding the resonator in place, I used the heat gun to melt the solder and let surface tension do the rest.<br>
     Finally, soldering was done. However, in my first attempt, I discovered a fatal error in my PCB design. I forgot to account for the programming section.<br>
     My PCB was designed without a way to connect it to my laptop for programming. Luckily the pins were still wirable with jumper cables, however the layout was very messy and confusing.<br>
+    <img src = ".\images\soldered board attempt 1.png" width="100%" /><br>
     When testing it to see if my laptop could recognize my board, I discovered that the chip was likely to be fried. Judging by how messy it was, maybe it was a blessing in disguise.<br>
-    After a few days of redesigning, here was my best board.<br>
-
+    <img src = ".\images\connect attempt 1.png" width="100%" /><br>
+    <img src = ".\images\failed test attempt.png" width="100%" /><br>
+    After a few days of redesigning, here was my best board. Keying in avrdude in control panel, the chip signature was recognized.<br>
+    <img src = ".\images\recognized.png" width="100%" /><br>
+    <img src = ".\images\final board.jpg" width="100%" /><br>
    </p>
    <p>
     <h1>Programming</h1>
@@ -143,17 +166,26 @@
     What v-usb does is it takes 2 data pins and converts them into usb ports for usb support.<br>
     Since it is an 8-bit registry, the data pins have to be from arduino pins 0 to 8.<br>
     Using the atmega328 pinout sheet, these are the pins v-usb can use to facilitate the usb support.<br>
+    <img src = ".\images\pinout.png" width="100%" /><br>
     After installing the v-usb library, there are a few things we need to configure.<br>
     First is to determine which data pins will be used. Inside the v-usb file, there is a usbconfig.h file we need to edit.<br>
     Inside there are two lines which determine which data pins faciliate usb support.<br>
     Referring to our Eagle design and our atmega328 pinout sheet, I edited the file to suit my needs.<br>
+    <img src = ".\images\usbconfig.png" width="100%" /><br>
     Next, we head to Arduino IDE. Since we are not using attiny IC chips, we need to install a new library which contains the correct IC chip used.<br>
     Online, the minicore library contains what we need, thus I installed it and now arduino IDE recognizes the correct IC chip family.<br>
     Afterwards, I had to change to the correct type of IC chip used (atmega328), as well as edited the type of bootloader (none) and changed the clock system to 16MHz external clock.<br>
+    <img src = ".\images\board config.png" width="100%" /><br>
+    <img src = ".\images\config 2.png" width="100%" /><br>
     With that done, we can start programming.<br>
     I referenced a sample code and did some editing, mainly to remove unnecessary sections and looped the if statements for each key used.<br>
+    <img src = ".\images\key setup.png" width="100%" /><br>
+    <img src = ".\images\void loop.png" width="100%" /><br>
+    <img src = ".\images\void loop 2.png" width="100%" /><br>
     I also edited the defined pins to the ones I had included in my PCB design. Note that the defined pins are for Arduino pins, not the IC chip pins.<br>
+    <img src = ".\images\defined pins.png" width="100%" /><br>
     With that, I connected my ISP to the board and my laptop, burned my bootloader and uploaded the program.<br>
+    <img src = ".\images\uploading.png" width="100%" /><br>
     To check if the program went through, I checked that my ISP programmer LEDs were blinking, and used the multimeter to check that voltage was flowing through the ISP headers.<br>
   </p>
   <p>
@@ -161,7 +193,18 @@
     I decided to use the large format CNC machine to make my controller case.
     I intially set up my case to pocket the inside so that the whole thing could be done in one piece, however I decided to switch to 2 pieces as pocket cutting would make the inner edges rough.<br>
     Sanding the inner corners would be tough, to say the least.<br>
-    Sadly, during the final days of the project, the only large format CNC machine broke down (z-axis calibration broke), thus I could not machine anything in that time.
+    I first modelled how the switches would be seated. I modelled 2 cases to be put side by side. This will be laser cut.<br>
+    <img src = ".\images\switch plate.png" width="100%" /><br>
+    Next, I modelled the exterior case.<br>
+    <img src = ".\images\husk.png" width="100%" /><br>
+    Afterwards, I modelled the interior section where the PCB will be housed.<br>
+    <img src = ".\images\inner pocket.png" width="100%" /><br>
+    Finally, I filleted sharp edges around the inside and outside of the case. <br>
+    Here is what the completed 3D model looks like.<br>
+    <img src = ".\images\controller case.png" width="100%" /><br>
+    Sadly, during the final days of the project, the only large format CNC machine broke down (z-axis calibration broke), thus I could not machine anything in that time.<br>
+    On the bright side, at least the laser cut switch plates came out fine.<br>
+    <img src = ".\images\cut plates.png" width="100%" /><br>
   </p>
   <p>
     <h1>Integration</h1>
@@ -169,6 +212,7 @@
     Changing USB ports<br>
     Switching laptops<br>
     Editing the source code (usbdrv.h)<br>
+    <img src = ".\images\source code edit.png" width="100%" /><br>
     Changing the IC chip from atmega328p to atmega328<br>
     Unfortunately, none of the above measures worked and I could not solve it before the project due date.<br>
   </p>
@@ -186,7 +230,9 @@
     - soldering smd components is quite difficult, especially without proper thermal control. the atmega328p pins were very close together which made life very hard for me<br>
     - resonator was hard to solder (connections are below the component)<br>
     - it is good to read up on specifications of your microchip before you design your board (e.g finding vusb library, reading atmega328p specs to find that both vcc and ground pins need to be connected to stabilize the chip)<br>
-    - knowing how to design properly + find resources to help you is very important<br>
+    - knowing how to design properly + find resources to help you is very important. That way, you avoid doing this:<br>
+    <img src = ".\images\third time was not the charm.png" width="50%" /><br>
+    <img src = ".\images\why did i bother to do this.png" width="100%" /><br>
     - for some attempts, be prepared to fail because limitations make pcb milling volatile (z axis probe sometimes doesn’t work, need adjust level midway, endmill not sharp causing burrs or even no cut)<br>
     - when probe not working, have to manually set z axis yourself using paper and slowly lowering the machine (in steps) <br>
     If you would like to see what a working product looks like, you can look at Lynn's final project. He did something similar to mine, only difference being the number of switches, case and PCB design. Most importantly, his project works.<br>
@@ -203,7 +249,7 @@
 
 <footer>
     <p>Copyright © Ng Chee Rui, Ethan</p>
-    <img src="" width="20%" /><br>
+    <img src=".\images\gay3.png" width="20%" /><br>
   </footer>
 </body>
 
